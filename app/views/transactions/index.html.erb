@@ -6,20 +6,20 @@
 
 <h1>Approved Transactions</h1>
 <div id="approved-transactions-chart">
-  <%= line_chart(@approved_transactions_count) %>
+  <%= pie_chart(@approved_transactions_count) %>
 </div>
 
 <h1>Processing Transactions</h1>
 <div id="processing-transactions-chart">
-  <%= line_chart(@processing_transactions_count) %>
+  <%= pie_chart(@processing_transactions_count) %>
 </div>
 
 <h1>Alert Transactions</h1>
 <div id="alert-transactions-chart">
-  <%= line_chart(@alert_transactions_count) %>
+  <%= pie_chart(@alert_transactions_count) %>
 </div>
 
 <h1>Anomalous Transactions</h1>
 <div id="anomalous-transactions-chart">
-  <%= line_chart(@anomalous_transactions) %>
+  <%=  pie_chart(@anomalous_transactions) %>
 </div>
