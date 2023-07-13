@@ -1,0 +1,14 @@
+<%= form_tag import_sales_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import CSV" %>
+<% end %>
+
+
+<h1>Anomalies</h1>
+<% @anomalies.each do |anomaly| %>
+  <p>Anomaly detected at <%= anomaly.time %></p>
+<% end %>
+
+<div id="chart-container">
+  <canvas id="chart"></canvas>
+</div>

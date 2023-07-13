@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time: MyString
+  today: 1
+  yesterday: 1
+  same_day_last_week: 1
+  avg_last_week: 1.5
+  avg_last_month: 1.5
+
+two:
+  time: MyString
+  today: 1
+  yesterday: 1
+  same_day_last_week: 1
+  avg_last_week: 1.5
+  avg_last_month: 1.5

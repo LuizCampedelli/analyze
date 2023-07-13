@@ -1,0 +1,25 @@
+<h1>Choose the file to moniter</h1>
+<%= form_with(url: import_transactions_path, local: true, method: :post, multipart: true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import CSV" %>
+<% end %>
+
+<h1>Approved Transactions</h1>
+<div id="approved-transactions-chart">
+  <%= line_chart(@approved_transactions_count) %>
+</div>
+
+<h1>Processing Transactions</h1>
+<div id="processing-transactions-chart">
+  <%= line_chart(@processing_transactions_count) %>
+</div>
+
+<h1>Alert Transactions</h1>
+<div id="alert-transactions-chart">
+  <%= line_chart(@alert_transactions_count) %>
+</div>
+
+<h1>Anomalous Transactions</h1>
+<div id="anomalous-transactions-chart">
+  <%= line_chart(@anomalous_transactions) %>
+</div>
