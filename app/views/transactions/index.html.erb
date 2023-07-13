@@ -1,8 +1,10 @@
-<h1>Choose the file to moniter</h1>
-<%= form_with(url: import_transactions_path, local: true, method: :post, multipart: true) do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import CSV" %>
-<% end %>
+<div class="files-analyze">
+  <h1>Choose the file to moniter</h1>
+  <%= form_with(url: import_transactions_path, local: true, method: :post, multipart: true) do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>
 
 <h1>Approved Transactions</h1>
 <div id="approved-transactions-chart">

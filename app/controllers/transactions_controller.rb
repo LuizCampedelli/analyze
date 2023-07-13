@@ -13,6 +13,7 @@ class TransactionsController < ApplicationController
     @approved_transactions = @transactions.where(status: 'approved')
     @approved_transactions_count = @approved_transactions.group_by_day(:created_at).count
 
+
     @processing_transactions = Transaction.where(status: 'processing')
     @processing_transactions_count = @processing_transactions.group_by_day(:created_at).count
   end
