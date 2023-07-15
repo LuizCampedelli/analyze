@@ -14,7 +14,7 @@ class Sale < ApplicationRecord
       puts "Anomaly detected at #{self.time}"
     end
   end
-  
+
   def self.anomalies_over_time
     Sale.where("today > (avg_last_month * 2)")
   end

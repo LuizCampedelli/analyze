@@ -2,7 +2,7 @@
 class SalesController < ApplicationController
   def index
     @sales = Sale.all
-    @anomalies = Sale.anomalies_over_time
+    @anomalies = Sale.anomalies_over_time || []
   end
 
   def import

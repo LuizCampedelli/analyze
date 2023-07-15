@@ -1,14 +1,27 @@
-<%= form_tag import_sales_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import CSV" %>
-<% end %>
 
-
-<h1>Anomalies</h1>
-<% @anomalies.each do |anomaly| %>
-  <p>Anomaly detected at <%= anomaly.time %></p>
-<% end %>
-
-<div id="chart-container">
-  <canvas id="chart"></canvas>
+<div class="banner">
+  <%= image_tag "banner.png", class: "banner", alt: "Cloudwalk", style: "width: 100%; height: 600px;" %>
 </div>
+
+<main>
+  <h1>Import your CSV</h1>
+
+  <%= form_tag import_sales_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+
+  <h1>Anomalous Transactions in a week</h1>
+
+  <div id="anomalous-transactions-chart">
+    <%= pie_chart @anomalies.group_by(&:time).transform_values(&:count) %>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <% @anomalies.each do |anomaly| %>
+        <p>Anomalous Transaction detected at <%= anomaly.time %></p>
+      <% end %>
+    </table>
+  </div>
+</main>
