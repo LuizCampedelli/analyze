@@ -1,10 +1,17 @@
-<div class="files-analyze">
-  <h1>Choose the file to moniter</h1>
-  <%= form_with(url: import_transactions_path, local: true, method: :post, multipart: true) do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import CSV" %>
-  <% end %>
-</div>
+<body style="background-color: black; color: white;">
+<header class="header">
+      <%= image_tag "logo.png", class: "logo", alt: "Cloudwalk" %>
+</header>
+
+<main class="d-flex flex-column align-items-center justify-content-center">
+  <div class="text-center w-50">
+    <h1 class="my-4">Import your Transaction CSV</h1>
+      <%= form_with(url: import_transactions_path, local: true, method: :post, multipart: true) do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Import CSV" %>
+      <% end %>
+  </div>
+
 
 <h1>Approved Transactions</h1>
 <div id="approved-transactions-chart">
