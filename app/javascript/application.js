@@ -4,3 +4,4 @@ import "./controllers"
 import "bootstrap"
 import "./channels"
 import "chartkick/chart.js";
+

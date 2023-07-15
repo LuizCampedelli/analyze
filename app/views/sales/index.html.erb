@@ -1,14 +1,72 @@
-<%= form_tag import_sales_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import CSV" %>
-<% end %>
 
+<body style="background-color: black; color: white;">
+<header class="header">
+      <%= image_tag "logo.png", class: "logo", alt: "Cloudwalk" %>
+</header>
 
-<h1>Anomalies</h1>
-<% @anomalies.each do |anomaly| %>
-  <p>Anomaly detected at <%= anomaly.time %></p>
-<% end %>
+<main class="d-flex flex-column align-items-center justify-content-center">
+  <div class="text-center w-50">
+    <h1 class="my-4">Import your CSV</h1>
 
-<div id="chart-container">
-  <canvas id="chart"></canvas>
+    <%= form_tag import_sales_path, multipart: true do %>
+      <div class="mb-3">
+        <%= file_field_tag :file %>
+      </div>
+      <%= submit_tag "Import CSV", class: "btn btn-primary" %>
+    <% end %>
+
+    <h1 class="my-4">Anomalous Transactions in a week</h1>
+  </div>
+
+<div id="sales-charts" class="text-center">
+  <h2>Anomalies - Today's Sales</h2>
+  <% today_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:today) } %>
+  <%= line_chart today_anomalies %>
+
+  <h2>Anomalies - Yesterday's Sales</h2>
+  <% yesterday_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:yesterday) } %>
+  <%= line_chart yesterday_anomalies %>
+
+  <h2>Anomalies - Sales on Same Day Last Week</h2>
+  <% same_day_last_week_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:same_day_last_week) } %>
+  <%= line_chart same_day_last_week_anomalies %>
+
+  <h2>Anomalies - Average Sales Last Week</h2>
+  <% avg_last_week_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:avg_last_week) } %>
+  <%= line_chart avg_last_week_anomalies %>
+
+  <h2>Anomalies - Average Sales Last Month</h2>
+  <% avg_last_month_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:avg_last_month) } %>
+  <%= line_chart avg_last_month_anomalies %>
 </div>
+
+
+
+  <div class="table-responsive" style="width: calc(100% / 3); margin: 50px auto;">
+  <table class="table text-white">
+    <thead>
+      <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Today</th>
+        <th scope="col">Yesterday</th>
+        <th scope="col">Same Day Last Week</th>
+        <th scope="col">Average Last Week</th>
+        <th scope="col">Average Last Month</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @anomalies.each do |anomaly| %>
+        <tr>
+          <td><%= anomaly.time %></td>
+          <td><%= anomaly.today %></td>
+          <td><%= anomaly.yesterday %></td>
+          <td><%= anomaly.same_day_last_week %></td>
+          <td><%= anomaly.avg_last_week %></td>
+          <td><%= anomaly.avg_last_month %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</main>
+</body>
