@@ -12,23 +12,23 @@
       <% end %>
   </div>
 
-
 <h1>Approved Transactions</h1>
 <div id="approved-transactions-chart">
-  <%= pie_chart(@approved_transactions_count) %>
+  <%= column_chart(@approved_transactions.group_by_hour_of_day(:timestamp, format: "%k").sum(:count)) %>
 </div>
 
 <h1>Processing Transactions</h1>
 <div id="processing-transactions-chart">
-  <%= pie_chart(@processing_transactions_count) %>
+  <%= column_chart(@processing_transactions.group_by_hour_of_day(:timestamp, format: "%k").sum(:count)) %>
 </div>
 
 <h1>Alert Transactions</h1>
 <div id="alert-transactions-chart">
-  <%= pie_chart(@alert_transactions_count) %>
+  <%= column_chart(@alert_transactions.group_by_hour_of_day(:timestamp, format: "%k").sum(:count)) %>
 </div>
 
 <h1>Anomalous Transactions</h1>
 <div id="anomalous-transactions-chart">
-  <%=  pie_chart(@anomalous_transactions) %>
+  <%= column_chart(@anomalies.group_by_hour_of_day(:timestamp, format: "%k").sum(:count)) %>
 </div>
+
