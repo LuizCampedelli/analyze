@@ -1,8 +1,4 @@
 <body style="background-color: black; color: white;">
-  <header class="header">
-        <%= image_tag "logo.png", class: "logo", alt: "Cloudwalk" %>
-  </header>
-
   <main class="d-flex flex-column align-items-center justify-content-center">
     <div class="text-center w-50 mb-5">
       <h1 class="my-4">Import your Transaction CSV</h1>
@@ -11,35 +7,35 @@
           <%= submit_tag "Import CSV", class: "btn btn-dark" %>
         <% end %>
     </div>
-      <div id="sales-charts" class="text-center">
-        <div class="row">
-          <div class="col">
-            <h1>Approved Transactions</h1>
-              <div id="approved-transactions-chart">
-                <%= area_chart(@approved_transactions.group_by_hour_of_day(:timestamp).count) %>
-              </div>
-          </div>
-          <div class="col">
-            <h1>Processing Transactions</h1>
-              <div id="processing-transactions-chart">
-                <%= area_chart(@processing_transactions.group_by_hour_of_day(:timestamp).count) %>
-              </div>
-          </div>
-          <div class="col">
-            <h1>Alert Transactions</h1>
-              <div id="alert-transactions-chart">
-                <%= area_chart(@alert_transactions.group_by_hour_of_day(:timestamp).count) %>
-              </div>
-          </div>
+    <div id="sales-charts" class="text-center">
+      <div class="row">
+        <div class="col">
+          <h1>Approved Transactions</h1>
+            <div id="approved-transactions-chart">
+              <%= area_chart(@approved_transactions.group_by_hour_of_day(:timestamp).count) %>
+            </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <h1>Anomalous Transactions</h1>
-              <div id="anomalous-transactions-chart">
-                <%= area_chart(@anomalies.group_by_hour_of_day(:timestamp).count) %>
-              </div>
-          </div>
+        <div class="col">
+          <h1>Processing Transactions</h1>
+            <div id="processing-transactions-chart">
+              <%= area_chart(@processing_transactions.group_by_hour_of_day(:timestamp).count) %>
+            </div>
+        </div>
+        <div class="col">
+          <h1>Alert Transactions</h1>
+            <div id="alert-transactions-chart">
+              <%= area_chart(@alert_transactions.group_by_hour_of_day(:timestamp).count) %>
+            </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <h1>Anomalous Transactions</h1>
+            <div id="anomalous-transactions-chart">
+              <%= area_chart(@anomalies.group_by_hour_of_day(:timestamp).count) %>
+            </div>
+        </div>
+      </div>
+    </div>
   </main>
 </body>
