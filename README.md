@@ -1,3 +1,4 @@
+
 ## **Monitor Analyst Checkout and Transactions Test**
 
 🎯 This repository contains a Ruby on Rails application that provides solutions to the tasks of the Monitor Analyst Checkout and Transactions Test. The application is designed to test the candidate's understanding of the payments industry and their ability to analyze data using SQL.
@@ -26,6 +27,7 @@ rails db:create
 rails db:migrate
 7. Start the application:
 rails server or bin/dev
+
 8. Open your web browser and navigate to http://localhost:3000 to view the application.
 
 9. The CSV files to allow the test are in the root folder, to be copied outside the app, to be browsed.
