@@ -1,8 +1,8 @@
 class AnalyzeMailer < ApplicationMailer
-  default from: 'noreply@analyzeit.com'
+  default from: 'analyzeit666@gmail.com'
 
   def sales_analysis_complete
-    @url  = 'https://analyzeit.herokuapp.com'
+    @url = 'https://analyzeit.herokuapp.com'
     mail(to: 'analyzeit666@gmail.com', subject: 'Checkout Analysis is Complete')
   end
 

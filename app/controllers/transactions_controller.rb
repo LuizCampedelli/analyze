@@ -36,7 +36,7 @@ class TransactionsController < ApplicationController
       Transaction.import(params[:file])
 
       # Send email after importing the data
-      TransactionsMailer.transactions_analysis_complete('noreply@analyzeit.com').deliver_now
+      AnalyzeMailer.transactions_analysis_complete.deliver_now
 
       redirect_to transactions_url, notice: "Transactions imported."
     else

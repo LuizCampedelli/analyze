@@ -9,7 +9,7 @@ class SalesController < ApplicationController
     Sale.import(params[:file])
     analyze_data
     # Send email after analyzing the data
-    AnalyzeMailer.sales_analysis_complete('noreply@analyzeit.com').deliver_now
+    AnalyzeMailer.sales_analysis_complete.deliver_now
 
     redirect_to root_url, notice: "Data imported."
   end
