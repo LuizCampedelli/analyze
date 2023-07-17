@@ -3,12 +3,14 @@ class SalesController < ApplicationController
   def index
     @sales = Sale.all
     analyze_data
-    # @anomalies = Sale.anomalies_over_time || []
   end
 
   def import
     Sale.import(params[:file])
     analyze_data
+    # Send email after analyzing the data
+    AnalyzeMailer.sales_analysis_complete('noreply@analyzeit.com').deliver_now
+
     redirect_to root_url, notice: "Data imported."
   end
 

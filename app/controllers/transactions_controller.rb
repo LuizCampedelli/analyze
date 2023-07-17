@@ -34,6 +34,10 @@ class TransactionsController < ApplicationController
   def import
     if params[:file].present?
       Transaction.import(params[:file])
+
+      # Send email after importing the data
+      TransactionsMailer.transactions_analysis_complete('noreply@analyzeit.com').deliver_now
+
       redirect_to transactions_url, notice: "Transactions imported."
     else
       redirect_to transactions_url, alert: "No file selected."
