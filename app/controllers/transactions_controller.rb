@@ -28,14 +28,46 @@ class TransactionsController < ApplicationController
     else
       render json: transaction.errors, status: :unprocessable_entity
     end
-    head :ok # This returns an empty response with a 200 OK status
   end
+
+  # def import
+  #   if params[:file].present?
+  #     # Upload and save the file to a permanent location (local or cloud storage)
+  #     Transaction.import(params[:file])
+
+  #     # Pass the path of the saved file to the job
+  #     # TransactionImportJob.perform_later(file_path)
+
+  #     # Send email after queuing the import job
+  #     AnalyzeMailer.transactions_analysis_complete.deliver_now
+
+  #     redirect_to transactions_url, notice: "Transactions imported."
+  #   else
+  #     redirect_to transactions_url, alert: "No file selected."
+  #   end
+  # end
 
   def import
     if params[:file].present?
-      Transaction.import(params[:file])
+      # Generate a unique filename
+      filename = "#{Time.now.to_i}_#{params[:file].original_filename}"
 
-      # Send email after importing the data
+      # Define a directory to store the file
+      directory = "public/uploads"
+
+      # Create the directory if it doesn't exist
+      Dir.mkdir(directory) unless File.exist?(directory)
+
+      # Create a path to the new file in the directory
+      path = File.join(directory, filename)
+
+      # Write the uploaded file's contents to the new file
+      File.open(path, "wb") { |f| f.write(params[:file].read) }
+
+      # Pass the path of the saved file to the job
+      TransactionImportJob.perform_later(path)
+
+      # Send email after queuing the import job
       AnalyzeMailer.transactions_analysis_complete.deliver_now
 
       redirect_to transactions_url, notice: "Transactions imported."
@@ -43,8 +75,7 @@ class TransactionsController < ApplicationController
       redirect_to transactions_url, alert: "No file selected."
     end
   end
-
-
+  
   private
 
   def transaction_params
