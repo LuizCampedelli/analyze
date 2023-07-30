@@ -14,14 +14,10 @@ class Sale < ApplicationRecord
       puts "Anomaly detected at #{self.time}"
     end
   end
-  
+
   def self.anomalies_over_time
     Sale.select(:time, :today, :yesterday, :same_day_last_week, :avg_last_week, :avg_last_month)
         .where("today > (avg_last_month * 2)")
         .order(:time)
   end
-
-  # def self.anomalies_over_time
-  #   Sale.where("today > (avg_last_month * 2)")
-  # end
 end

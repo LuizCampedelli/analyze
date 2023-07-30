@@ -1,4 +1,4 @@
-## **CloudWalk Backoffice Analyst Test**
+## **Monitor Analyst Checkout and Transactions Test**
 
 🎯 This repository contains a Ruby on Rails application that provides solutions to the tasks of the Monitor Analyst Checkout and Transactions Test. The application is designed to test the candidate's understanding of the payments industry and their ability to analyze data using SQL.
 
