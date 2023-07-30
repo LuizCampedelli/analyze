@@ -3,13 +3,13 @@ require 'csv'
 class Transaction < ApplicationRecord
   after_create :check_for_anomaly
 
-  def self.import(file)
+  def self.import(file_path)
     batch_id = Transaction.maximum(:batch_id).to_i + 1
 
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file_path, headers: true) do |row|
       transaction_hash = row.to_hash
       transaction_hash["timestamp"] = DateTime.strptime(transaction_hash["time"], "%Hh %M") if transaction_hash["time"].present?
-      # transaction_hash["status"] = transaction_hash["status"]
+      transaction_hash["status"] = transaction_hash["status"]
       transaction_hash["batch_id"] = batch_id
 
       transaction_count = transaction_hash["count"].to_i if transaction_hash["count"].present?
