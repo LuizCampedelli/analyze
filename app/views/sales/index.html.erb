@@ -11,30 +11,32 @@
       <h1 class="my-4">Anomalous Checkout</h1>
     </div>
     <div id="sales-charts" class="text-center">
-      <div class="row">
+      <%# <div class="row"> %>
+       <div class="col m-4">
         <div class="col">
           <h2>Anomalies - Today's Sales</h2>
           <% today_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:today) } %>
           <%= area_chart today_anomalies %>
         </div>
-        <div class="col">
+        <div class="col m-4">
           <h2>Anomalies - Yesterday's Sales</h2>
           <% yesterday_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:yesterday) } %>
           <%= area_chart yesterday_anomalies %>
         </div>
-        <div class="col">
+        <div class="col m-4">
           <h2>Anomalies - Sales on Same Day Last Week</h2>
           <% same_day_last_week_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:same_day_last_week) } %>
           <%= area_chart same_day_last_week_anomalies %>
         </div>
       </div>
-      <div class="row">
+      <%# <div class="row"> %>
+        <div class="col m-4">
         <div class="col">
             <h2>Anomalies - Average Sales Last Week</h2>
             <% avg_last_week_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:avg_last_week) } %>
             <%= area_chart avg_last_week_anomalies %>
         </div>
-        <div class="col">
+        <div class="col m-4">
           <h2>Anomalies - Average Sales Last Month</h2>
           <% avg_last_month_anomalies = @anomalies.group_by { |anomaly| anomaly.time }.transform_values { |anomalies| anomalies.sum(&:avg_last_month) } %>
           <%= area_chart avg_last_month_anomalies %>
