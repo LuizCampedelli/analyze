@@ -1,6 +1,6 @@
 $redis = Redis.new
 
-url = ENV["REDIS_URL"]
+url = ENV["REDISCLOUD_URL"]
 # was rediscloud_url
 
 if url
