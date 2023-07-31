@@ -30,13 +30,42 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def import
+    if params[:file].present?
+      file_data = params[:file].read
+
+      # Pass the file data to the job
+      TransactionImportJob.perform_later(file_data)
+
+      # Send email after queuing the import job
+      AnalyzeMailer.transactions_analysis_complete.deliver_now
+
+      redirect_to transactions_url, notice: "Transactions imported."
+    else
+      redirect_to transactions_url, alert: "No file selected."
+    end
+  end
+
+
   # def import
   #   if params[:file].present?
-  #     # Upload and save the file to a permanent location (local or cloud storage)
-  #     Transaction.import(params[:file])
+  #     # Generate a unique filename
+  #     filename = "#{Time.now.to_i}_#{params[:file].original_filename}"
+
+  #     # Define a directory to store the file
+  #     directory = "public/uploads"
+
+  #     # Create the directory if it doesn't exist
+  #     Dir.mkdir(directory) unless File.exist?(directory)
+
+  #     # Create a path to the new file in the directory
+  #     path = File.join(directory, filename)
+
+  #     # Write the uploaded file's contents to the new file
+  #     File.open(path, "wb") { |f| f.write(params[:file].read) }
 
   #     # Pass the path of the saved file to the job
-  #     # TransactionImportJob.perform_later(file_path)
+  #     TransactionImportJob.perform_later(path)
 
   #     # Send email after queuing the import job
   #     AnalyzeMailer.transactions_analysis_complete.deliver_now
@@ -47,35 +76,6 @@ class TransactionsController < ApplicationController
   #   end
   # end
 
-  def import
-    if params[:file].present?
-      # Generate a unique filename
-      filename = "#{Time.now.to_i}_#{params[:file].original_filename}"
-
-      # Define a directory to store the file
-      directory = "public/uploads"
-
-      # Create the directory if it doesn't exist
-      Dir.mkdir(directory) unless File.exist?(directory)
-
-      # Create a path to the new file in the directory
-      path = File.join(directory, filename)
-
-      # Write the uploaded file's contents to the new file
-      File.open(path, "wb") { |f| f.write(params[:file].read) }
-
-      # Pass the path of the saved file to the job
-      TransactionImportJob.perform_later(path)
-
-      # Send email after queuing the import job
-      AnalyzeMailer.transactions_analysis_complete.deliver_now
-
-      redirect_to transactions_url, notice: "Transactions imported."
-    else
-      redirect_to transactions_url, alert: "No file selected."
-    end
-  end
-  
   private
 
   def transaction_params

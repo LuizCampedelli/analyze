@@ -3,7 +3,8 @@ require 'csv'
 class Transaction < ApplicationRecord
   after_create :check_for_anomaly
 
-  def self.import(file_path)
+  def self.import(file_data)
+    # was file_path
     batch_id = Transaction.maximum(:batch_id).to_i + 1
 
     CSV.foreach(file_path, headers: true) do |row|
