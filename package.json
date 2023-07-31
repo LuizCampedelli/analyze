@@ -31,5 +31,11 @@
     "not chrome < 51",
     "not android < 5",
     "not ie < 12"
-  ]
+  ],
+  "env": {
+    "REDIS_PROVIDER": {
+      "value": "BONSAI_URL"
+    }
+  }
 }
+

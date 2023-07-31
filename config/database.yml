@@ -85,3 +85,4 @@ production:
   database: analyze_production
   username: analyze
   password: <%= ENV["ANALYZE_DATABASE_PASSWORD"] %>
+  pool: <%= ENV['DB_POOL'] || Sidekiq.options[:concurrency] %>

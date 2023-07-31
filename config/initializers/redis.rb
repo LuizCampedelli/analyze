@@ -1,6 +1,7 @@
 $redis = Redis.new
 
-url = ENV["REDISCLOUD_URL"]
+url = ENV["REDIS_URL"]
+# was rediscloud_url
 
 if url
   Sidekiq.configure_server do |config|
