@@ -85,3 +85,5 @@ gem 'sidekiq', '< 7'
 gem "sidekiq-failures"
 
 gem 'foreman', '~> 0.87.2'
+
+gem 'dotenv'
