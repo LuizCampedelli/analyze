@@ -1,4 +1,4 @@
-web: unset PORT && env RUBY_DEBUG_OPEN=true bin/rails server
+web: bundle exec puma -C config/puma.rb
 js: yarn build --watch
 css: yarn watch:css
 worker: bundle exec sidekiq -C config/sidekiq.yml
