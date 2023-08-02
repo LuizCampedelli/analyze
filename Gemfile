@@ -80,6 +80,8 @@ gem 'groupdate'
 
 gem 'bootstrap', '~> 5.1.3'
 
+# gem 'sidekiq', '< 7'
+
 gem 'sidekiq'
 
 gem "sidekiq-failures"
